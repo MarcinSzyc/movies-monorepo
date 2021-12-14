@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
-    "start:dev": "lerna exec --parallel npm run start:dev"
+    "start:dev": "lerna exec --parallel npm run start:dev",
+    "test": "lerna exec --parallel npm run test"
   },
   "dependencies": {
     "@nestjs/core": "^8.0.0"
