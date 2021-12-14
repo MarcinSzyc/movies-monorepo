@@ -18,18 +18,19 @@ export class MoviesResolver {
     return this.moviesService.findOne(title);
   }
   
-  @Mutation(() => Movie)
-  createMovie(@Args('createMovieInput') createMovieInput: CreateMovieInput) {
-    return this.moviesService.create(createMovieInput);
-  }
+  // TODO finish after AXIOS fetch
+  // @Mutation(() => Movie)
+  // createMovie(@Args('createMovieInput') createMovieInput: CreateMovieInput) {
+  //   return this.moviesService.create(createMovieInput);
+  // }
 
-  @Mutation(() => Movie)
-  updateMovie(@Args('updateMovieInput') updateMovieInput: UpdateMovieInput) {
-    return this.moviesService.update(updateMovieInput.id, updateMovieInput);
-  }
+  // @Mutation(() => Movie)
+  // updateMovie(@Args('updateMovieInput') updateMovieInput: UpdateMovieInput) {
+  //   return this.moviesService.update(updateMovieInput.id, updateMovieInput);
+  // }
 
-  @Mutation(() => Movie)
-  removeMovie(@Args('id', { type: () => Int }) id: number) {
-    return this.moviesService.remove(id);
-  }
+  // @Mutation(() => Movie)
+  // removeMovie(@Args('id', { type: () => Int }) id: number) {
+  //   return this.moviesService.remove(id);
+  // }
 }

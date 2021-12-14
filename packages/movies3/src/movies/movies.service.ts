@@ -23,15 +23,16 @@ export class MoviesService {
     }
   }
   
-  create(createMovieInput: CreateMovieInput) {
-    return 'This action adds a new movie';
-  }
+  // TODO finish after AXIOS fetch
+  // create(createMovieInput: CreateMovieInput) {
+  //   return 'This action adds a new movie';
+  // }
 
-  update(updateMovieInput: UpdateMovieInput) {
-    return `This action updates a #${id} movie`;
-  }
+  // update(updateMovieInput: UpdateMovieInput) {
+  //   return `This action updates a #${id} movie`;
+  // }
 
-  remove(title: string) {
-    return `This action removes a #${id} movie`;
-  }
+  // remove(title: string) {
+  //   return `This action removes a #${id} movie`;
+  // }
 }
