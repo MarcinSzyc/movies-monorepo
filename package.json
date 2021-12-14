@@ -5,6 +5,9 @@
     "build": "lerna run build",
     "start:dev": "lerna exec --parallel npm run start:dev"
   },
+  "dependencies": {
+    "@nestjs/core": "^8.0.0"
+  },
   "devDependencies": {
     "lerna": "^4.0.0"
   }
