@@ -4,7 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
-import { FetchMovieModule } from './fetch-movie/fetch-movie.module';
+// import { FetchMovieModule } from './fetch-movie/fetch-movie.module';
 
 @Module({
   imports: [
