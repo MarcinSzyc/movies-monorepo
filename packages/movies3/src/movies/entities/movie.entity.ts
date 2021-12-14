@@ -1,8 +1,10 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field} from '@nestjs/graphql';
+import { IsOptional } from 'class-validator';
 
 @ObjectType()
 export class Movie {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
+  @Field()
+  @IsOptional()
   title: string
 
   @Field()
