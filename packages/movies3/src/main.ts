@@ -26,8 +26,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   try {
-    await app.listen(3000);
-    Logger.log('Server started at port 3000');
+    await app.listen(4000);
+    Logger.log('Server started at port 4000');
   } catch (error) {
     Logger.error(error);
   }
