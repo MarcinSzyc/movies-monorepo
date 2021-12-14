@@ -7,11 +7,24 @@ import {
 
 import { AppModule } from './app.module';
 
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('Movies')
+    .setDescription('Movies project')
+    .setVersion('1.0')
+    .addTag('Movies')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
   try {
     await app.listen(3000);
     Logger.log('Server started at port 3000');
