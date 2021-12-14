@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { FetchMovieService } from '../fetch-movie/fetch-movie.service';
 import { CreateMovieInput } from './dto/create-movie.input';
 import { UpdateMovieInput } from './dto/update-movie.input';
 import { Movie } from './entities/movie.entity';
 
+
 @Injectable()
 export class MoviesService {
+  constructor (
+    private fetchMoviesService: FetchMovieService,
+  ){}
+  
   findAll() {
     return [{
       title: 'title',
@@ -14,7 +20,8 @@ export class MoviesService {
     }]
   }
   
-  findOne(title: string): Movie {
+  async findOne(title: string): Promise<Movie> {
+    const movie = await this.fetchMoviesService.fetchMovieDetails(title);
     return {
       title: title,
       released: "12/12/12",

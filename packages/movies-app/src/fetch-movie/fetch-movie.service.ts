@@ -1,0 +1,47 @@
+import { HttpService } from '@nestjs/axios';
+import { Injectable, Get, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { lastValueFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+interface responseTrimmed {
+  [key: string]: string | {
+      title: string;
+      released: string; 
+      genre: string;
+      director: string;
+  }
+}
+
+@Injectable()
+export class FetchMovieService {
+  private readonly omdbHost: string = this.configService.get(
+    'OMDB_API_HOST'
+  );
+
+  private readonly logger = new Logger(FetchMovieService.name);
+
+  constructor(
+    private httpService: HttpService,
+    private readonly configService: ConfigService,  
+  ) {}
+
+  async fetchMovieDetails(title: string): Promise<responseTrimmed>  {
+    const hostURL: string = `${this.omdbHost}/?apikey=${this.configService.get('OMDB_API_KEY')}`;
+    const movieData = await this.httpService.get(`${hostURL}&t=${title}`).pipe(map(response => response.data));
+
+    try {
+      const balh = await lastValueFrom(movieData)
+      return await lastValueFrom(movieData);
+    } catch (error) {
+      this.logger.error(error);
+      this.logger.error(error.toJSON());
+
+      if (error.response) {
+        return undefined;
+      }
+
+      throw error;
+    }
+  }
+}
