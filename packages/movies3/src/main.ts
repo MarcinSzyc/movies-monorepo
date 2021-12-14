@@ -25,9 +25,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
+  const port = process.env.MOVIES_PORT || 4000;
   try {
-    await app.listen(4000);
-    Logger.log('Server started at port 4000');
+    await app.listen(port);
+    Logger.log(`Server started at port ${port}`);
   } catch (error) {
     Logger.error(error);
   }
