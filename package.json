@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "start:dev": "lerna exec --parallel npm run start:dev",
     "test": "lerna exec --parallel npm run test"
