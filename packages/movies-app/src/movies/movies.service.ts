@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { FetchMovieService } from '@movies/fetch-movie/fetch-movie.service';
+import { FetchMoviesService } from '@movies/fetch-movies/fetch-movies.service';
 import { MoviesResponse } from '../types/movies-response.interface';
 
 @Injectable()
 export class MoviesService {
-  constructor(private fetchMoviesService: FetchMovieService) {}
+  constructor(private fetchMoviesService: FetchMoviesService) {}
 
   findAll() {
     return [

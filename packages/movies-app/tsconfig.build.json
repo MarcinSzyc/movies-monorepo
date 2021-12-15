@@ -1,8 +1,10 @@
 {
-  "extends": "../../tsconfig.build.json",
+  "extends": "./tsconfig.json",
 
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
   },
 
   "include": [

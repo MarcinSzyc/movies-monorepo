@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Get, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { lastValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,10 +16,10 @@ interface responseTrimmed {
 }
 
 @Injectable()
-export class FetchMovieService {
+export class FetchMoviesService {
   private readonly omdbHost: string = this.configService.get('OMDB_API_HOST');
 
-  private readonly logger = new Logger(FetchMovieService.name);
+  private readonly logger = new Logger(FetchMoviesService.name);
 
   constructor(
     private httpService: HttpService,

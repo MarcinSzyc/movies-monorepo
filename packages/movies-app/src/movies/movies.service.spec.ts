@@ -1,3 +1,4 @@
+import { FetchMoviesService } from '@movies/fetch-movies/fetch-movies.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesService } from './movies.service';
 
@@ -6,7 +7,13 @@ describe('MoviesService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MoviesService],
+      providers: [
+        MoviesService,
+        {
+          provide: FetchMoviesService,
+          useValue: jest.fn(),
+        },
+      ],
     }).compile();
 
     service = module.get<MoviesService>(MoviesService);
