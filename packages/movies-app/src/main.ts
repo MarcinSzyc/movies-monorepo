@@ -27,8 +27,8 @@ async function bootstrap() {
 
   const port = process.env.MOVIES_PORT || 4000;
   try {
-    await app.listen(port);
-    Logger.log(`Server started at port ${port}`);
+    await app.listen(port, '0.0.0.0');
+    Logger.log(`Server started at 0.0.0.0:${port}`);
   } catch (error) {
     Logger.error(error);
   }

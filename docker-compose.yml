@@ -1,0 +1,70 @@
+version: '3.7'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+  
+  movies-app:
+    container_name: movies-app
+    command: npm run start:dev
+    env_file:
+      - ./packages/movies-app/.env
+    build:
+      context: packages/movies-app
+      dockerfile: Dockerfile
+    ports:
+      - published: ${APP_PORT:-4000}
+        target: 4000
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    depends_on:
+      - elasticsearch
+
+  authentication:
+    container_name: authentication
+    command: node src/server.js
+    build:
+      context: packages/authentication
+      dockerfile: Dockerfile
+    ports:
+      - published: ${APP_PORT:-3000}
+        target: 3000
+    volumes:
+      - .:/app/
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - movies-app
+
+volumes:
+  elasticsearch-data:
+    driver: local
