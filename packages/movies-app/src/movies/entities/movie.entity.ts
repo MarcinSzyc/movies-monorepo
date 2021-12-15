@@ -1,18 +1,18 @@
-import { ObjectType, Field} from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
 
 @ObjectType()
 export class Movie {
   @Field()
   @IsOptional()
-  title: string
+  title: string;
 
   @Field()
-  released: string
+  released: string;
 
   @Field()
-  genre: string
+  genre: string;
 
   @Field()
-  director: string
+  director: string;
 }

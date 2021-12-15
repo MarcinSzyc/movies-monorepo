@@ -4,15 +4,16 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
-// import { FetchMovieModule } from './fetch-movie/fetch-movie.module';
+import { FetchMoviesModule } from './fetch-movies/fetch-movies.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
-    MoviesModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot({
-      autoSchemaFile: true
+      autoSchemaFile: true,
     }),
+    MoviesModule,
+    FetchMoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
