@@ -1,35 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { FetchMovieService } from '../fetch-movie/fetch-movie.service';
-import { CreateMovieInput } from './dto/create-movie.input';
-import { UpdateMovieInput } from './dto/update-movie.input';
-import { Movie } from './entities/movie.entity';
-
+import { FetchMovieService } from '@movies/fetch-movie/fetch-movie.service';
+import { MoviesResponse } from '../types/movies-response.interface';
 
 @Injectable()
 export class MoviesService {
-  constructor (
-    private fetchMoviesService: FetchMovieService,
-  ){}
-  
+  constructor(private fetchMoviesService: FetchMovieService) {}
+
   findAll() {
-    return [{
-      title: 'title',
-      released: "12/12/12",
-      genre: "TEST",
-      director: "TEST",
-    }]
+    return [
+      {
+        title: 'title',
+        released: '12/12/12',
+        genre: 'TEST',
+        director: 'TEST',
+      },
+    ];
   }
-  
-  async findOne(title: string): Promise<Movie> {
-    const movie = await this.fetchMoviesService.fetchMovieDetails(title);
+
+  async findOne(movieTitle: string): Promise<MoviesResponse> {
+    const movieDetails = await this.fetchMoviesService.fetchMovieDetails(
+      movieTitle,
+    );
+
     return {
-      title: title,
-      released: "12/12/12",
-      genre: "TEST",
-      director: "TEST",
-    }
+      title: movieDetails.Title,
+      released: movieDetails.Released,
+      genre: movieDetails.Genre,
+      director: movieDetails.Director,
+    } as MoviesResponse;
   }
-  
+
   // TODO finish after AXIOS fetch
   // create(createMovieInput: CreateMovieInput) {
   //   return 'This action adds a new movie';
