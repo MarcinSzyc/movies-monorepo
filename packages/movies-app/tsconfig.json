@@ -1,3 +1,8 @@
 {
-  "extends": "../../tsconfig.json"
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@movies/*": ["./src/*"]
+    }
+  }
 }

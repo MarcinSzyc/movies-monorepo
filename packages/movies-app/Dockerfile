@@ -8,7 +8,7 @@ RUN npm install
 
 ADD . .
 
-RUN npm build
+RUN npm run build --local
 
 EXPOSE 4000
 

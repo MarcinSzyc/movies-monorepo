@@ -43,8 +43,9 @@ services:
       - published: ${APP_PORT:-4000}
         target: 4000
     volumes:
-      - .:/app/
-      - /app/node_modules
+      - ./packages/movies-app/:/movies/
+      - /movies/node_modules
+    command: npm run start:dev --local
     depends_on:
       - elasticsearch
 

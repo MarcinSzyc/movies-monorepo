@@ -17,14 +17,13 @@ interface responseTrimmed {
 
 @Injectable()
 export class FetchMoviesService {
-  private readonly omdbHost: string = this.configService.get('OMDB_API_HOST');
-
-  private readonly logger = new Logger(FetchMoviesService.name);
-
   constructor(
     private httpService: HttpService,
     private readonly configService: ConfigService,
   ) {}
+
+  private readonly omdbHost: string = this.configService.get('OMDB_API_HOST');
+  private readonly logger = new Logger(FetchMoviesService.name);
 
   async fetchMovieDetails(title: string): Promise<responseTrimmed> {
     const hostURL = `${this.omdbHost}/?apikey=${this.configService.get(
