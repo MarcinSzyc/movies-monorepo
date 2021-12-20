@@ -3,7 +3,7 @@ import { IsOptional } from 'class-validator';
 
 @ObjectType()
 export class Movie {
-  @Field()
+  @Field(() => String)
   @IsOptional()
   title: string;
 

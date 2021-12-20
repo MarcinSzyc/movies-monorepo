@@ -1,4 +1,4 @@
-import { FetchMoviesService } from '@movies/fetch-movies/fetch-movies.service';
+import { FetchMoviesService } from '../fetch-movies/fetch-movies.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesService } from './movies.service';
 
