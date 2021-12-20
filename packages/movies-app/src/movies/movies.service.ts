@@ -1,5 +1,5 @@
+import { FetchMoviesService } from '../fetch-movies/fetch-movies.service';
 import { Injectable } from '@nestjs/common';
-import { FetchMoviesService } from '@movies/fetch-movies/fetch-movies.service';
 import { MoviesResponse } from '../types/movies-response.interface';
 
 @Injectable()
