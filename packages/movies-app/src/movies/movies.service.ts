@@ -6,28 +6,20 @@ import { MoviesResponse } from '../types/movies-response.interface';
 export class MoviesService {
   constructor(private fetchMoviesService: FetchMoviesService) {}
 
-  findAll() {
-    return [
-      {
-        title: 'title',
-        released: '12/12/12',
-        genre: 'TEST',
-        director: 'TEST',
-      },
-    ];
+  async findAll() {
+    const result = await this.fetchMoviesService.findAll();
+
+    return result.map((hit) => {
+      return hit._source;
+    });
   }
 
   async findOne(movieTitle: string): Promise<MoviesResponse> {
-    const movieDetails = await this.fetchMoviesService.fetchMovieDetails(
+    const movieDetails = await this.fetchMoviesService.getMovieDetails(
       movieTitle,
     );
 
-    return {
-      title: movieDetails.Title,
-      released: movieDetails.Released,
-      genre: movieDetails.Genre,
-      director: movieDetails.Director,
-    } as MoviesResponse;
+    return movieDetails[0]._source;
   }
 
   // TODO finish after AXIOS fetch
