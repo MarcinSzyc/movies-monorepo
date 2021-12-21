@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { FetchMoviesService } from './fetch-movies.service';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
+import { ElasticClientService } from '../elastic-client/elastic-client.service';
 
 describe('FetchMoviesService', () => {
   let service: FetchMoviesService;
@@ -19,6 +20,10 @@ describe('FetchMoviesService', () => {
           useValue: {
             get: jest.fn(),
           },
+        },
+        {
+          provide: ElasticClientService,
+          useValue: jest.fn(),
         },
       ],
     }).compile();

@@ -5,15 +5,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
 import { FetchMoviesModule } from './fetch-movies/fetch-movies.module';
-
+import { ElasticClientModule } from './elastic-client/elastic-client.module';
+import * as path from 'path';
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: path.resolve(__dirname, '..', '.env'),
+    }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
     MoviesModule,
     FetchMoviesModule,
+    ElasticClientModule,
   ],
   controllers: [AppController],
   providers: [AppService],

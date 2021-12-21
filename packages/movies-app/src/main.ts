@@ -8,6 +8,7 @@ import {
 import { AppModule } from './app.module';
 
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ElasticClientService } from './elastic-client/elastic-client.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -21,6 +22,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('Movies')
     .build();
+
+  const elasticClientService = app.get(ElasticClientService);
+  elasticClientService.info();
+  await elasticClientService.setupIndex();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

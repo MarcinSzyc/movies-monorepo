@@ -1,0 +1,26 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+      {
+        "name": "Attach",
+        "port": 9229,
+        "request": "attach",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node",
+        "sourceMaps": true,
+        "cwd": "${workspaceFolder}/packages/movies-app/src/",
+        "localRoot": "${workspaceFolder}/packages/movies-app",
+        "remoteRoot": "/movies/",
+        "outFiles": ["${workspaceRoot}/packages/movies-app/dist/**/*.js"],
+        "resolveSourceMapLocations": [
+          "${workspaceFolder}/packages/movies-app/**",
+          "!**/node_modules/**"
+        ]
+      },
+  ] 
+} 
