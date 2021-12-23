@@ -3,17 +3,21 @@ import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
 import { CreateMovieInput } from './dto/create-movie.input';
 import { UpdateMovieInput } from './dto/update-movie.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../authentication/graph-ql-guard.guard';
 
 @Resolver(() => Movie)
 export class MoviesResolver {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Query(() => [Movie])
+  @UseGuards(GqlAuthGuard)
   findAll() {
     return this.moviesService.findAll();
   }
 
   @Query(() => Movie)
+  @UseGuards(GqlAuthGuard)
   findOne(@Args('title', { type: () => String }) title: string) {
     return this.moviesService.findOne(title);
   }
