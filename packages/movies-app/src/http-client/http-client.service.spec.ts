@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FetchMoviesService } from './fetch-movies.service';
+import { HttpClientService } from './http-client.service';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { ElasticClientService } from '../elastic-client/elastic-client.service';
 
-describe('FetchMoviesService', () => {
-  let service: FetchMoviesService;
+describe('HttpClientService', () => {
+  let service: HttpClientService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        FetchMoviesService,
+        HttpClientService,
         {
           provide: HttpService,
           useValue: jest.fn(),
@@ -28,7 +28,7 @@ describe('FetchMoviesService', () => {
       ],
     }).compile();
 
-    service = module.get<FetchMoviesService>(FetchMoviesService);
+    service = module.get<HttpClientService>(HttpClientService);
   });
 
   it('should be defined', () => {

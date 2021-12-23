@@ -44,12 +44,7 @@ export class ElasticClientService {
   }
 
   async saveMovie(movieDetails: MoviesResponse) {
-    const movieSearchResult = await this.searchMovie(movieDetails.title);
-    if (movieSearchResult && movieSearchResult.length > 0) {
-      return movieSearchResult;
-    }
-    await this.indexMovie(movieDetails);
-    return await this.searchMovie(movieDetails.title);
+    return await this.indexMovie(movieDetails);
   }
 
   async indexMovie(movieDetails: MoviesResponse, indexName = this.index) {
@@ -83,7 +78,6 @@ export class ElasticClientService {
           },
         },
       });
-      this.logger.log(`Commenced search for ${movieTitle}`);
       return result.body.hits.hits;
     } catch (error) {
       this.logger.error(error);

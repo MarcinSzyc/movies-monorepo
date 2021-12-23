@@ -1,4 +1,4 @@
-import { FetchMoviesService } from '../fetch-movies/fetch-movies.service';
+import { HttpClientService } from '../http-client/http-client.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesService } from './movies.service';
 
@@ -10,7 +10,7 @@ describe('MoviesService', () => {
       providers: [
         MoviesService,
         {
-          provide: FetchMoviesService,
+          provide: HttpClientService,
           useValue: jest.fn(),
         },
       ],
