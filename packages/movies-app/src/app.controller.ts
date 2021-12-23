@@ -10,6 +10,7 @@ export class AppController {
     private readonly authenticationService: AuthenticationService,
   ) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('hello')
   getHello(): string {
     return this.appService.getHello();
