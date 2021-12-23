@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
 import { FetchMoviesModule } from './fetch-movies/fetch-movies.module';
 import { ElasticClientModule } from './elastic-client/elastic-client.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 import * as path from 'path';
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import * as path from 'path';
     MoviesModule,
     FetchMoviesModule,
     ElasticClientModule,
+    AuthenticationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
