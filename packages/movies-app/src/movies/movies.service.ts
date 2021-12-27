@@ -38,11 +38,9 @@ export class MoviesService {
       `${this.omdbHost}&t=${movieTitle}`,
     );
     const reducedMovieDetails = sanitizeObject(fetchedMovieDetails);
-    const savedMovieDetails = await this.elasticClientService.saveMovie(
-      reducedMovieDetails,
-    );
+    await this.elasticClientService.saveMovie(reducedMovieDetails);
 
-    return JSON.parse(savedMovieDetails.meta.request.params.body as string);
+    return reducedMovieDetails;
   }
 
   // TODO finish after AXIOS fetch
@@ -54,7 +52,18 @@ export class MoviesService {
   //   return `This action updates a #${id} movie`;
   // }
 
-  remove(title: string) {
-    return;
+  async remove(movieTitle: string) {
+    const databaseSearchResult = await this.elasticClientService.searchMovie(
+      movieTitle,
+    );
+
+    if (!databaseSearchResult && databaseSearchResult.length === 0) {
+      return {
+        error: 'No such movie in the database',
+      };
+    }
+
+    const result = await this.elasticClientService.removeMovie(movieTitle);
+    return result.body;
   }
 }

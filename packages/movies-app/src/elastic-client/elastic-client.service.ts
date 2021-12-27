@@ -101,4 +101,23 @@ export class ElasticClientService {
       return;
     }
   }
+
+  async removeMovie(movieTitle: string) {
+    try {
+      const result = await this.elasticsearchService.deleteByQuery({
+        index: this.index,
+        body: {
+          query: {
+            match: {
+              title: movieTitle,
+            },
+          },
+        },
+      });
+      return result;
+    } catch (error) {
+      this.logger.error(error);
+      return;
+    }
+  }
 }
