@@ -41,7 +41,7 @@ export class DeleteMovie {
 
   @Field()
   request_per_second: float;
-  ś;
+
   @Field()
   throtled_until_millis: number;
 

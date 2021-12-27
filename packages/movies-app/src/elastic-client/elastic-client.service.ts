@@ -120,4 +120,25 @@ export class ElasticClientService {
       return;
     }
   }
+
+  async updateMovie(movieId: string, movieDetails: Record<string, any>) {
+    try {
+      const result = await this.elasticsearchService.update({
+        index: this.index,
+        id: movieId,
+        body: {
+          doc: {
+            title: movieDetails.title,
+            released: movieDetails.released,
+            genre: movieDetails.genre,
+            director: movieDetails.director,
+          },
+        },
+      });
+      return result.body;
+    } catch (error) {
+      this.logger.error(error);
+      return;
+    }
+  }
 }
