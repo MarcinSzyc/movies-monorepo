@@ -5,17 +5,17 @@ import { MoviesResponse } from '../types/movies-response.interface';
 
 @Injectable()
 export class ElasticClientService {
-  private readonly logger = new Logger(ElasticClientService.name);
-  private readonly index = this.configService.get('ELASTICSEARCH_INDEX');
-
   constructor(
     private readonly elasticsearchService: ElasticsearchService,
     private readonly configService: ConfigService,
   ) {}
 
+  private readonly logger = new Logger(ElasticClientService.name);
+  private readonly index = this.configService.get('ELASTICSEARCH_INDEX');
+
   async info() {
     const info = await this.elasticsearchService.info();
-    this.logger.debug(info);
+    this.logger.log(info);
   }
 
   async setupIndex() {
@@ -47,7 +47,10 @@ export class ElasticClientService {
     return await this.indexMovie(movieDetails);
   }
 
-  async indexMovie(movieDetails: MoviesResponse, indexName = this.index) {
+  private async indexMovie(
+    movieDetails: MoviesResponse,
+    indexName = this.index,
+  ) {
     try {
       const result = await this.elasticsearchService.index({
         index: indexName,
@@ -63,6 +66,7 @@ export class ElasticClientService {
       return result;
     } catch (error) {
       this.logger.error(error);
+      throw error;
     }
   }
 
@@ -81,7 +85,7 @@ export class ElasticClientService {
       return result.body.hits.hits;
     } catch (error) {
       this.logger.error(error);
-      return;
+      throw error;
     }
   }
 
@@ -98,7 +102,7 @@ export class ElasticClientService {
       return result.body.hits.hits;
     } catch (error) {
       this.logger.error(error);
-      return;
+      throw error;
     }
   }
 
@@ -117,7 +121,7 @@ export class ElasticClientService {
       return result;
     } catch (error) {
       this.logger.error(error);
-      return;
+      throw error;
     }
   }
 
@@ -138,7 +142,7 @@ export class ElasticClientService {
       return result.body;
     } catch (error) {
       this.logger.error(error);
-      return;
+      throw error;
     }
   }
 }

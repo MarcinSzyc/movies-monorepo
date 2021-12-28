@@ -28,7 +28,7 @@ export class AuthenticationService {
       return await lastValueFrom(response);
     } catch (error) {
       this.logger.error(error);
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -46,7 +46,7 @@ export class AuthenticationService {
       return await lastValueFrom(tokenResponse);
     } catch (error) {
       this.logger.error(error);
-      return error.response.data;
+      throw error.response.data;
     }
   }
 }
