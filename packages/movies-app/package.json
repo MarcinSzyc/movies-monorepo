@@ -69,6 +69,7 @@
     "typescript": "^4.3.5"
   },
   "jest": {
+    "clearMocks": true,
     "moduleFileExtensions": [
       "js",
       "json",
@@ -83,6 +84,7 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
+    "coverageReporters": ["html"],
     "testEnvironment": "node",
     "moduleNameMapper": {
       "@movies/(.*)": "<rootDir>/$1"
