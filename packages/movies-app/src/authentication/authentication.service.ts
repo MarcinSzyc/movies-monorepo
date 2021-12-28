@@ -20,14 +20,15 @@ export class AuthenticationService {
       username: username,
       password: password,
     };
-    const response = await this.httpService
-      .post(this.authenticationUrl, body)
-      .pipe(map((response) => response.data));
     try {
+      const response = await this.httpService
+        .post(this.authenticationUrl, body)
+        .pipe(map((response) => response.data));
+
       return await lastValueFrom(response);
     } catch (error) {
       this.logger.error(error);
-      return error.response.data;
+      throw error.response.data;
     }
   }
 
@@ -37,14 +38,15 @@ export class AuthenticationService {
       password: credentials.userId,
     };
 
-    const tokenResponse = await this.httpService
-      .post(this.authenticationUrl, payload)
-      .pipe(map((response) => response.data));
-
     try {
+      const tokenResponse = await this.httpService
+        .post(this.authenticationUrl, payload)
+        .pipe(map((response) => response.data));
+
       return await lastValueFrom(tokenResponse);
     } catch (error) {
       this.logger.error(error);
+      throw error.response.data;
     }
   }
 }
