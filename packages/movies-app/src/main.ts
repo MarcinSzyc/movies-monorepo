@@ -21,6 +21,7 @@ async function bootstrap() {
     .setDescription('Movies project')
     .setVersion('1.0')
     .addTag('Movies')
+    .addBearerAuth()
     .build();
 
   const elasticClientService = app.get(ElasticClientService);

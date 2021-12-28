@@ -1,21 +1,29 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AppService } from './app.service';
-import { AuthenticationService } from './authentication/authentication.service';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly authenticationService: AuthenticationService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Hello World api endpoint' })
   @UseGuards(AuthGuard('jwt'))
   @Get('hello')
   getHello(): string {
     return this.appService.getHello();
   }
 
+  @ApiOperation({ summary: 'Authenticate using username and password' })
+  @ApiResponse({
+    status: 201,
+    description: 'Token successfully obtained.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid username or password',
+  })
   @UseGuards(AuthGuard('local'))
   @Post('/auth/login')
   async getToken(@Request() req) {
