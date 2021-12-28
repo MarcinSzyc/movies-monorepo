@@ -44,12 +44,7 @@ export class ElasticClientService {
   }
 
   async saveMovie(movieDetails: MoviesResponse) {
-    const movieSearchResult = await this.searchMovie(movieDetails.title);
-    if (movieSearchResult && movieSearchResult.length > 0) {
-      return movieSearchResult;
-    }
-    await this.indexMovie(movieDetails);
-    return await this.searchMovie(movieDetails.title);
+    return await this.indexMovie(movieDetails);
   }
 
   async indexMovie(movieDetails: MoviesResponse, indexName = this.index) {
@@ -83,7 +78,6 @@ export class ElasticClientService {
           },
         },
       });
-      this.logger.log(`Commenced search for ${movieTitle}`);
       return result.body.hits.hits;
     } catch (error) {
       this.logger.error(error);
@@ -102,6 +96,46 @@ export class ElasticClientService {
         },
       });
       return result.body.hits.hits;
+    } catch (error) {
+      this.logger.error(error);
+      return;
+    }
+  }
+
+  async removeMovie(movieTitle: string) {
+    try {
+      const result = await this.elasticsearchService.deleteByQuery({
+        index: this.index,
+        body: {
+          query: {
+            match: {
+              title: movieTitle,
+            },
+          },
+        },
+      });
+      return result;
+    } catch (error) {
+      this.logger.error(error);
+      return;
+    }
+  }
+
+  async updateMovie(movieId: string, movieDetails: Record<string, any>) {
+    try {
+      const result = await this.elasticsearchService.update({
+        index: this.index,
+        id: movieId,
+        body: {
+          doc: {
+            title: movieDetails.title,
+            released: movieDetails.released,
+            genre: movieDetails.genre,
+            director: movieDetails.director,
+          },
+        },
+      });
+      return result.body;
     } catch (error) {
       this.logger.error(error);
       return;

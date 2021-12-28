@@ -4,7 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
-import { FetchMoviesModule } from './fetch-movies/fetch-movies.module';
+import { HttpClientModule } from './http-client/http-client.module';
 import { ElasticClientModule } from './elastic-client/elastic-client.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import * as path from 'path';
@@ -18,7 +18,7 @@ import * as path from 'path';
       autoSchemaFile: true,
     }),
     MoviesModule,
-    FetchMoviesModule,
+    HttpClientModule,
     ElasticClientModule,
     AuthenticationModule,
   ],

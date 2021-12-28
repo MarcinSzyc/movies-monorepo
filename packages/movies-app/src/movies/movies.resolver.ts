@@ -5,6 +5,8 @@ import { CreateMovieInput } from './dto/create-movie.input';
 import { UpdateMovieInput } from './dto/update-movie.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../authentication/graph-ql-guard.guard';
+import { DeleteMovie } from './dto/delete-movie.output';
+import { UpdateMovie } from './dto/update-movie.output';
 
 @Resolver(() => Movie)
 export class MoviesResolver {
@@ -28,13 +30,15 @@ export class MoviesResolver {
   //   return this.moviesService.create(createMovieInput);
   // }
 
-  // @Mutation(() => Movie)
-  // updateMovie(@Args('updateMovieInput') updateMovieInput: UpdateMovieInput) {
-  //   return this.moviesService.update(updateMovieInput.id, updateMovieInput);
-  // }
+  @Mutation(() => UpdateMovie)
+  @UseGuards(GqlAuthGuard)
+  updateMovie(@Args('updateMovieInput') updateMovieInput: UpdateMovieInput) {
+    return this.moviesService.update(updateMovieInput);
+  }
 
-  // @Mutation(() => Movie)
-  // removeMovie(@Args('id', { type: () => Int }) id: number) {
-  //   return this.moviesService.remove(id);
-  // }
+  @Mutation(() => DeleteMovie)
+  @UseGuards(GqlAuthGuard)
+  async removeMovie(@Args('title', { type: () => String }) title: string) {
+    return await this.moviesService.remove(title);
+  }
 }
