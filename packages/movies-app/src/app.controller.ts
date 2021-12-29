@@ -1,6 +1,11 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { AppService } from './app.service';
 
 @Controller()
@@ -15,6 +20,14 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @ApiBody({
+    schema: {
+      properties: {
+        username: { type: 'string' },
+        password: { type: 'string' },
+      },
+    },
+  })
   @ApiOperation({ summary: 'Authenticate using username and password' })
   @ApiResponse({
     status: 201,
