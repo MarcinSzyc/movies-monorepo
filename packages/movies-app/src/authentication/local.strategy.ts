@@ -20,7 +20,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       }
       return result.token;
     } catch (error) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(error);
     }
   }
 }
