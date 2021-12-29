@@ -1,7 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
-import { CreateMovieInput } from './dto/create-movie.input';
 import { UpdateMovieInput } from './dto/update-movie.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../authentication/graph-ql-guard.guard';
@@ -23,12 +22,6 @@ export class MoviesResolver {
   findOne(@Args('title', { type: () => String }) title: string) {
     return this.moviesService.findOne(title);
   }
-
-  // TODO finish after AXIOS fetch
-  // @Mutation(() => Movie)
-  // createMovie(@Args('createMovieInput') createMovieInput: CreateMovieInput) {
-  //   return this.moviesService.create(createMovieInput);
-  // }
 
   @Mutation(() => UpdateMovie)
   @UseGuards(GqlAuthGuard)
